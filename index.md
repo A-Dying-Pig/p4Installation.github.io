@@ -1,37 +1,196 @@
-## Welcome to GitHub Pages
+# p4 Installation Tutorial
 
-You can use the [editor on GitHub](https://github.com/A-Dying-Pig/p4Installation.github.io/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+<center>Author:A-Dying-Pig		Last update: 2020.11.10</center>
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+> This tutorial shows how to install p4 and its dependencies from scratch. `PI` (An implementation framework for a P4Runtime server), `p4c` (P4_16 reference compiler) and `behavior-model` (The reference P4 software switch), which are all the components you need to run p4 programs, will be installed. When finishing installation, you can play with [p4 tutorial](https://github.com/p4lang/tutorials).
+>
+> The installation is tested on Ubuntu 18.04.5 LTS. The whole installation may take 2 hours depending on network condition. At least 25 Gbytes of free disk space is needed.
+>
+> It is recommended to install the parts following the order listed below. The version of the packages and repos must follow the instructions. Any mismatch version may cause unsuccessful installation. 
+>
+> To check latest package and repo versions, visit https://github.com/p4lang/tutorials/blob/master/vm/user-bootstrap.sh and get new versions from the bash file.
 
-### Markdown
+## Step1: Install dependencies
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+1. install basic dependencies needed for p4 and doxygen. 
 
-```markdown
-Syntax highlighted code block
+   ```shell
+   sudo apt-get install -y cmake g++ git automake libtool libgc-dev bison flex libfl-dev libgmp-dev libboost-dev libboost-iostreams-dev libboost-graph-dev llvm pkg-config python python-scapy python-ipaddr python-ply tcpdump doxygen graphviz texlive-full golang libpcre3-dev libpcre3 curl mininet
+   ```
 
-# Header 1
-## Header 2
-### Header 3
+2. install dependencies needed for p4 behavior model version 2
 
-- Bulleted
-- List
+   ```shell
+   git clone https://github.com/p4lang/behavioral-model.git
+   cd behavioral-model
+   ./install_deps.sh
+   cd ..
+   ```
 
-1. Numbered
-2. List
+3. install  `protobuf`
 
-**Bold** and _Italic_ and `Code` text
+   ```shell
+   git clone https://github.com/protocolbuffers/protobuf.git
+   cd protobuf
+   git checkout v3.2.0
+   export CFLAGS="-Os"
+   export CXXFLAGS="-Os"
+   export LDFLAGS="-Wl,-s"
+   ./autogen.sh
+   ./configure --prefix=/usr
+   make
+   sudo make install
+   sudo ldconfig
+   unset CFLAGS CXXFLAGS LDFLAGS
+   cd ..
+   ```
 
-[Link](url) and ![Image](src)
-```
+4. install `grpc`
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+   ```shell
+   sudo pip install grpcio
+   ```
 
-### Jekyll Themes
+   ```shell
+   git clone https://github.com/google/grpc.git
+   cd grpc
+   git checkout v1.3.2
+   git submodule update --init --recursive
+   export LDFLAGS="-Wl,-s"
+   make
+   ```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/A-Dying-Pig/p4Installation.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+   If the compiling process stops and you see the following error:
 
-### Support or Contact
+   ```shell
+   cc1: warnings being treated as errors
+   ```
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+   Open and edit `Makefile`. In the line that starts with `CPPFLAGS`, remove `-Werror` flag. Save and close `Makefile`. Then run  `make clean`  and `make`. This time the compiling should works well.
+
+   ```shell
+   sudo make install
+   sudo ldconfig
+   unset LDFLAGS
+   cd ..
+   ```
+
+
+5. install `sysrepo` and its dependencies `libyang`
+
+   ```shell
+   git clone https://github.com/CESNET/libyang.git
+   cd libyang
+   git checkout v1.0.184
+   mkdir build
+   cd build
+   cmake ..
+   make
+   sudo make install
+   sudo ldconfig
+   cd ../..
+   ```
+
+   ```shell
+   git clone https://github.com/sysrepo/sysrepo.git
+   cd sysrepo
+   git checkout v1.4.70
+   mkdir build
+   cd build
+   cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLES=Off -DCALL_TARGET_BINS_DIRECTLY=Off ..
+   make
+   sudo make install
+   sudo ldconfig
+   cd ../..
+   ```
+
+## Step2: Install p4
+
+1. `PI`
+
+   ```shell
+   git clone https://github.com/p4lang/PI
+   cd PI
+   git checkout 41358da0ff32c94fa13179b9cee0ab597c9ccbcc
+   git submodule update --init --recursive
+   ./autogen.sh
+   ./configure --with-proto
+   make
+   make check
+   sudo make install
+   sudo ldconfig
+   cd ..
+   ```
+
+2. `behavioral-model`
+
+   ```shell
+   cd behavioral-model
+   git checkout b447ac4c0cfd83e5e72a3cc6120251c1e91128ab
+   ./autogen.sh
+   ./configure --enable-debugger --with-pi
+   make
+   sudo make install
+   sudo ldconfig
+   ```
+
+   ```shell
+   cd targets/simple_switch_grpc
+   ./autogen.sh
+   ./configure --with-thrift
+   make
+   sudo make install
+   sudo ldconfig
+   cd ../../..
+   ```
+
+3. `p4c`
+
+   ```shell
+   git clone --recursive https://github.com/p4lang/p4c.git
+   cd p4c
+   git checkout 69e132d0d663e3408d740aaf8ed534ecefc88810
+   git submodule update --init --recursive
+   mkdir build
+   cd build
+   cmake ..
+   make
+   sudo make install
+   sudo ldconfig
+   cd ../..
+   ```
+
+No error? Congratulations! You have successfully installed everything you need for p4.
+
+Have fun with p4! 
+
+## Step3(optional): run a p4 program
+
+You can now follow [p4 tutorial](https://github.com/p4lang/tutorials) to learn p4. To run `Basic Forwarding` exercise, execute:
+
+  ```shell
+  git clone https://github.com/p4lang/tutorials.git
+  cd tutorials/exercises/basic
+  make clean
+  make run
+  ```
+
+You should now see a Mininet command prompt. Try to ping between hosts in the topology:
+
+  ```shell
+  h1 ping h2
+  ```
+
+Type `exit` to leave each xterm and the Mininet command line. Then, to stop mininet:
+
+  ```shell
+  make stop
+  ```
+
+And to delete all pcaps, build files, and logs:
+
+  ```shell
+  make clean
+  ```
+
+The ping failed because each switch is programmed according to `basic.p4`, which drops all packets on arrival. Please visit [p4 tutorial](https://github.com/p4lang/tutorials) for more information.
