@@ -1,6 +1,7 @@
 # p4 Installation Tutorial
 
-<center>Author:A-Dying-Pig		Last update: 2020.11.10</center>
+Author: A-Dying-Pig		
+Last update: 2020.11.10
 
 > This tutorial shows how to install p4 and its dependencies from scratch. `PI` (An implementation framework for a P4Runtime server), `p4c` (P4_16 reference compiler) and `behavior-model` (The reference P4 software switch), which are all the components you need to run p4 programs, will be installed. When finishing installation, you can play with [p4 tutorial](https://github.com/p4lang/tutorials).
 >
@@ -30,6 +31,10 @@
 3. install  `protobuf`
 
    ```shell
+   sudo pip install protobuf==3.2.0
+   ```
+
+   ```shell
    git clone https://github.com/protocolbuffers/protobuf.git
    cd protobuf
    git checkout v3.2.0
@@ -49,6 +54,7 @@
 
    ```shell
    sudo pip install grpcio
+   sudo pip install psutil
    ```
 
    ```shell
@@ -60,13 +66,13 @@
    make
    ```
 
-   If the compiling process stops and you see the following error:
+   If the compiling process stops and the following error occurs:
 
    ```shell
    cc1: warnings being treated as errors
    ```
 
-   Open and edit `Makefile`. In the line that starts with `CPPFLAGS`, remove `-Werror` flag. Save and close `Makefile`. Then run  `make clean`  and `make`. This time the compiling should works well.
+   Open and edit `Makefile`. In the line that starts with `CPPFLAGS`, remove `-Werror` flag. Save and close `Makefile`. Then run  `make clean`  and `make`. This time the compiling should work well.
 
    ```shell
    sudo make install
@@ -164,7 +170,7 @@ No error? Congratulations! You have successfully installed everything you need f
 
 Have fun with p4! 
 
-## Step3(optional): run a p4 program
+## Step3 (optional): run a p4 program
 
 You can now follow [p4 tutorial](https://github.com/p4lang/tutorials) to learn p4. To run `Basic Forwarding` exercise, execute:
 
