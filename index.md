@@ -1,7 +1,9 @@
 # p4 Installation Tutorial
 
-Author: A-Dying-Pig		
+Author: A-Dying-Pig
+
 Last update: 2020.11.10
+
 
 > This tutorial shows how to install p4 and its dependencies from scratch. `PI` (An implementation framework for a P4Runtime server), `p4c` (P4_16 reference compiler) and `behavior-model` (The reference P4 software switch), which are all the components you need to run p4 programs, will be installed. When finishing installation, you can play with [p4 tutorial](https://github.com/p4lang/tutorials).
 >
