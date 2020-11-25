@@ -2,7 +2,7 @@
 
 Author: A-Dying-Pig
 
-Last update: 2020.11.10
+Last update: 2020.11.25
 
 
 > This tutorial shows how to install p4 and its dependencies from scratch. `PI` (An implementation framework for a P4Runtime server), `p4c` (P4_16 reference compiler) and `behavior-model` (The reference P4 software switch), which are all the components you need to run p4 programs, will be installed. When finishing installation, you can play with [p4 tutorial](https://github.com/p4lang/tutorials).
@@ -51,7 +51,7 @@ Last update: 2020.11.10
    unset CFLAGS CXXFLAGS LDFLAGS
    cd ..
    ```
-   note: when `./configure`runs with `--prefix=/usr`, `protobuf v3.2` will be installed under `/usr` directory. Otherwise `protobuf v3.2` will be installed under `/usr/local` directory. Programs under `/usr/local` has higher priority than those under `/usr` by default. If there are multiple `protobuf`s of different versions installed on your computer, please ensure that the `protobuf v3.2` acquires highest priority to meet the requirement from PI,p4c,etc.
+   note: when `./configure`runs with `--prefix=/usr`, `protobuf v3.2` will be installed under `/usr` directory. Otherwise `protobuf v3.2` will be installed under `/usr/local` directory. Programs under `/usr/local` have higher priority than those under `/usr` by default. If there are multiple `protobuf`s of different versions installed on your computer, please ensure that the `protobuf v3.2` acquires highest priority to meet the requirement from PI,p4c,etc.
 
 4. install `grpc`
 
