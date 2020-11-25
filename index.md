@@ -51,6 +51,7 @@ Last update: 2020.11.10
    unset CFLAGS CXXFLAGS LDFLAGS
    cd ..
    ```
+   note: when `./configure`runs with `--prefix=/usr`, `protobuf v3.2` will be installed under `/usr` directory. Otherwise `protobuf v3.2` will be installed under `/usr/local` directory. Programs under `/usr/local` has higher priority than those under `/usr` by default. If there are multiple `protobuf`s of different versions installed on your computer, please ensure that the `protobuf v3.2` acquires highest priority to meet the requirement from PI,p4c,etc.
 
 4. install `grpc`
 
