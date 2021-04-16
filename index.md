@@ -166,6 +166,7 @@ Last update: 2021.4.16
    sudo ldconfig
    cd ../../..
    ```
+   run `simple_switch` to check whether successfully installed `simple_switch`.
 
 3. `p4c`
 
