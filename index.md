@@ -56,7 +56,14 @@ Last update: 2020.11.25
    unset CFLAGS CXXFLAGS LDFLAGS
    cd ..
    ```
-   note: when `./configure`runs with `--prefix=/usr`, `protobuf v3.2` will be installed under `/usr` directory. Otherwise `protobuf v3.2` will be installed under `/usr/local` directory. Programs under `/usr/local` have higher priority than those under `/usr` by default. If there are multiple `protobuf`s of different versions installed on your computer, please ensure that the `protobuf v3.2` acquires highest priority to meet the requirement from PI,p4c,etc.
+   Note: when `./configure`runs with `--prefix=/usr`, `protobuf v3.2` will be installed under `/usr` directory. Otherwise `protobuf v3.2` will be installed under `/usr/local` directory. Programs under `/usr/local` have higher priority than those under `/usr` by default. 
+   
+   If there are multiple `protobuf`s of different versions installed, please ensure that the `protobuf v3.2` acquires highest priority to meet the requirement from PI,p4c,etc.
+   ```shell
+   protoc --version
+   > libprotoc 3.2.0
+   ```
+   To delete different version of `protobuf`, delete `libprotoc*`, `protoc` in `bin`,`include`,`share`,`lib` folder.
 
 4. install `grpc`
 
