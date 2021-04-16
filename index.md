@@ -15,10 +15,15 @@ Last update: 2020.11.25
 
 ## Step1: Install dependencies
 
-1. install basic dependencies needed for p4 and doxygen. 
+1. install basic dependencies needed for p4. 
 
    ```shell
-   sudo apt-get install -y cmake g++ git automake libtool libgc-dev bison flex libfl-dev libgmp-dev libboost-dev libboost-iostreams-dev libboost-graph-dev llvm pkg-config python python-scapy python-ipaddr python-ply tcpdump doxygen graphviz texlive-full golang libpcre3-dev libpcre3 curl mininet
+   sudo apt-get install -y cmake g++ git automake libtool libgc-dev bison flex libfl-dev libgmp-dev libboost-dev libboost-iostreams-dev libboost-graph-dev llvm pkg-config python python-scapy python-ipaddr python-ply tcpdump graphviz golang libpcre3-dev libpcre3 curl mininet lsb-release
+   ```
+   install doxygen (optional)
+   
+   ```shell
+   sudo apt-get install -y texlive-full doxygen
    ```
 
 2. install dependencies needed for p4 behavior model version 2
