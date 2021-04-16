@@ -171,7 +171,7 @@ Last update: 2021.4.16
 3. `p4c`
 
    ```shell
-   git clone --recursive https://github.com/p4lang/p4c.git
+   git clone https://github.com/p4lang/p4c.git
    cd p4c
    git checkout 69e132d0d663e3408d740aaf8ed534ecefc88810
    git submodule update --init --recursive
