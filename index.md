@@ -2,7 +2,7 @@
 
 Author: A-Dying-Pig
 
-Last update: 2020.11.25
+Last update: 2021.4.16
 
 
 > This tutorial shows how to install p4 and its dependencies from scratch. `PI` (An implementation framework for a P4Runtime server), `p4c` (P4_16 reference compiler) and `behavior-model` (The reference P4 software switch), which are all the components you need to run p4 programs, will be installed. When finishing installation, you can play with [p4 tutorial](https://github.com/p4lang/tutorials).
@@ -152,6 +152,7 @@ Last update: 2020.11.25
    ./autogen.sh
    ./configure --enable-debugger --with-pi
    make
+   make check
    sudo make install
    sudo ldconfig
    ```
@@ -177,10 +178,12 @@ Last update: 2020.11.25
    cd build
    cmake ..
    make
+   make check
    sudo make install
    sudo ldconfig
    cd ../..
    ```
+   run `p4c --help` to check whether successfully installed `p4c`.
 
 No error? Congratulations! You have successfully installed everything you need for p4.
 
