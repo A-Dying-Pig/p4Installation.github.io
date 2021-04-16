@@ -74,6 +74,7 @@ Last update: 2020.11.25
    make
    ```
 
+   submodule `boringssl` and `boringssl-with-bazel` are different branches of the same repo `boringssl`.
    If the compiling process stops and the following error occurs:
 
    ```shell
