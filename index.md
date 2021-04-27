@@ -150,7 +150,15 @@ Last update: 2021.4.16
    cd behavioral-model
    git checkout b447ac4c0cfd83e5e72a3cc6120251c1e91128ab
    ./autogen.sh
+   ```
+   To enable switch logging:
+   ```shell
    ./configure --enable-debugger --with-pi
+   ```
+   For higher performance:
+   ```shell
+   ./configure --with-pi   --disable-logging-macros CXXFLAGS=-O3
+   ```shell
    make
    make check
    sudo make install
