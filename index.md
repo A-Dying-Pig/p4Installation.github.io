@@ -157,7 +157,7 @@ Last update: 2021.4.16
    ```
    For higher performance:
    ```shell
-   ./configure --with-pi   --disable-logging-macros
+   ./configure --with-pi 'CXXFLAGS=-g -O3' 'CFLAGS=-g -O3' --disable-logging-macros --disable-elogger
    ```
    
    ```shell
